@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fill PDF Form Online Free — No Upload, Nothing Leaves Your Browser</title>
+<meta name="description" content="Fill any PDF form online for free. Type onto application forms, contracts and documents right in your browser. Your file is never uploaded — 100% private.">
+<link rel="canonical" href="https://paperlitepdf.com/fill-pdf-form.html">
+<link rel="alternate" hreflang="en" href="https://paperlitepdf.com/fill-pdf-form.html">
+<link rel="alternate" hreflang="x-default" href="https://paperlitepdf.com/fill-pdf-form.html">
+<meta property="og:title" content="Fill PDF Form Online Free — No Upload, Nothing Leaves Your Browser">
+<meta property="og:description" content="Fill any PDF form online for free. Type onto application forms, contracts and documents right in your browser. Your file is never uploaded — 100% private.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index,follow">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Fill a PDF Form Online — Free &amp; Private",
+"applicationCategory":"UtilitiesApplication","operatingSystem":"Any (browser-based)",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"description":"Fill any PDF form online for free. Type onto application forms, contracts and documents right in your browser. Your file is never uploaded — 100% private."}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+<nav class="topnav">
+  <a href="index.html" class="logo"><span class="dot"></span>PaperLite</a>
+  <div class="links">
+    <a href="fill-pdf-form.html">Fill Form</a>
+    <a href="merge-pdf.html">Merge</a>
+    <a href="split-pdf.html">Split</a>
+    <a href="images-to-pdf.html">Images→PDF</a>
+    <a href="remove-pdf-password.html">Remove Password</a>
+    <a href="rotate-pdf.html">Rotate</a>
+  </div>
+  <span id="langSwitcher"></span>
+  </nav>
+  <header class="toolhead">
+    <h1>Fill a PDF Form Online — Free &amp; Private</h1>
+    <p class="lede">Type directly onto any PDF — application forms, contracts, government documents. Place text and checkmarks wherever you need them, choose the font and size, then download the completed file. Everything happens inside your browser, so the document never leaves your device.</p>
+    <div class="privacy">🔒 <b>Your file never leaves your device.</b> All processing runs locally in your browser.</div>
+  </header>
+
+  <div class="panel active toolpanel">
+  <div class="panel" id="p-fill">
+    <button class="back" onclick="home()">← all tools</button>
+    <h2>Fill a Form</h2>
+    <div class="sub">Load a PDF, then click anywhere on it to add text. Drag to reposition.</div>
+    <div class="drop" id="d-fill" onclick="document.getElementById('f-fill').click()">
+      <p><b>Click to choose a PDF</b> or drop it here</p>
+    </div>
+    <input type="file" id="f-fill" accept="application/pdf">
+    <div id="editorWrap" style="display:none">
+      <div class="toolbar">
+        <button onclick="addField('text')">+ Text box</button>
+        <button onclick="addField('check')">+ Checkmark ✓</button>
+        <span class="fontgrp">
+          <select id="fontFamilySel" disabled onchange="applyFontFamily(this.value)" title="Font of selected box">
+            <option value="Helvetica">Helvetica / Arial</option>
+            <option value="TimesRoman">Times Roman</option>
+            <option value="Courier">Courier</option>
+          </select>
+          <select id="fontSizeSel" disabled onchange="applyFontSize(this.value)" title="Font size (points), like MS Word">
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11" selected>11</option>
+            <option value="12">12</option>
+            <option value="14">14</option>
+            <option value="16">16</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+            <option value="24">24</option>
+            <option value="28">28</option>
+            <option value="36">36</option>
+          </select>
+        </span>
+        <div class="pager">
+          <button onclick="changePage(-1)">‹ Prev</button>
+          <span id="pageInfo">Page 1 / 1</span>
+          <button onclick="changePage(1)">Next ›</button>
+        </div>
+        <button class="act" style="margin:0" onclick="exportFilled()">Download filled PDF</button>
+      </div>
+      <p class="hint">Click a box to select it, then type. Pick its font & size from the dropdowns. Drag the box to move; drag the orange corner to resize. The dashed outline shows only on the box you're editing — the final PDF has no boxes. Delete via ✕, double-click, or Delete/Backspace while empty.</p>
+      <div id="editorStage"><canvas id="pdfCanvas"></canvas></div>
+    </div>
+    <div class="status" id="s-fill"></div>
+  </div>
+
+  <!-- MERGE -->
+
+  </div>
+
+  <section class="explain">
+    <h2>About this tool</h2>
+    <p>Filling a PDF form should not mean printing it, writing by hand, scanning it back, or uploading a private document to a stranger&#x27;s server. This tool lets you open a PDF, click anywhere to add text or a checkmark, adjust the size to fit the form&#x27;s lines, and download a clean filled copy. It works on multi-page forms and there is no sign-up, no watermark, and no file upload — the processing runs entirely in your own browser.</p>
+    <h2>Is it really private?</h2>
+    <p>Yes. Unlike most online PDF services, this tool does not upload your file to a server. The PDF is read into your browser's memory on your own computer or phone, processed there, and handed straight back to you as a download. We never receive, see, store, or transmit the document.</p>
+    <h2>More free PDF tools</h2>
+    <p><a href="merge-pdf.html">Merge PDF Files</a> · <a href="split-pdf.html">Split a PDF</a> · <a href="images-to-pdf.html">Convert Images to PDF</a> · <a href="remove-pdf-password.html">Remove a Password From a PDF You Own</a> · <a href="rotate-pdf.html">Rotate PDF Pages</a></p>
+  </section>
+<footer>
+  Your files are processed entirely in your browser and never uploaded.<br>
+  <a href="legal.html#terms">Terms</a> · <a href="legal.html#privacy">Privacy</a> ·
+  <a href="legal.html#disclaimer">Disclaimer</a> · Built with pdf-lib (MIT) &amp; pdf.js (Apache 2.0) · A FishyBiz project
+</footer>
+</div>
+<script src="app.js"></script>
+<script src="i18n.js"></script>
+</body>
+</html>
