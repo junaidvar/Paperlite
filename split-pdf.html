@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Split PDF Free Online — Extract Pages, No Upload</title>
+<meta name="description" content="Split a PDF online for free: extract a page range or break it into single pages. Runs in your browser — your file is never uploaded.">
+<link rel="canonical" href="https://paperlitepdf.com/split-pdf.html">
+<link rel="alternate" hreflang="en" href="https://paperlitepdf.com/split-pdf.html">
+<link rel="alternate" hreflang="x-default" href="https://paperlitepdf.com/split-pdf.html">
+<meta property="og:title" content="Split PDF Free Online — Extract Pages, No Upload">
+<meta property="og:description" content="Split a PDF online for free: extract a page range or break it into single pages. Runs in your browser — your file is never uploaded.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index,follow">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Split a PDF — Free &amp; Private",
+"applicationCategory":"UtilitiesApplication","operatingSystem":"Any (browser-based)",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"description":"Split a PDF online for free: extract a page range or break it into single pages. Runs in your browser — your file is never uploaded."}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+<nav class="topnav">
+  <a href="index.html" class="logo"><span class="dot"></span>PaperLite</a>
+  <div class="links">
+    <a href="fill-pdf-form.html">Fill Form</a>
+    <a href="sign-pdf-online.html">Sign PDF</a>
+    <a href="merge-pdf.html">Merge</a>
+    <a href="split-pdf.html">Split</a>
+    <a href="images-to-pdf.html">Images→PDF</a>
+      <a href="word-to-pdf.html">Word→PDF</a>
+      <a href="epub-to-pdf.html">EPUB→PDF</a>
+    <a href="remove-pdf-password.html">Remove Password</a>
+    <a href="rotate-pdf.html">Rotate</a>
+      <a href="blog/index.html">Blog</a>
+  </div>
+  <span id="langSwitcher"></span>
+  </nav>
+  <header class="toolhead">
+    <h1>Split a PDF — Free &amp; Private</h1>
+    <p class="lede">Pull out a specific page range, or break a PDF into individual one-page files. The split is performed in your browser; your document is never uploaded.</p>
+    <div class="privacy">🔒 <b>Your file never leaves your device.</b> All processing runs locally in your browser.</div>
+  </header>
+
+  <div class="panel active toolpanel">
+  <div class="toolinner" id="p-split">
+    <h2>Split a PDF</h2>
+    <div class="sub">Extract a page range, or get every page as its own file.</div>
+    <div class="drop" id="d-split" onclick="document.getElementById('f-split').click()">
+      <p><b>Click to choose a PDF</b> or drop it here</p>
+    </div>
+    <input type="file" id="f-split" accept="application/pdf">
+    <div id="splitOpts" style="display:none">
+      <label class="fld">From page</label><input type="number" id="sFrom" min="1" value="1">
+      <label class="fld">To page</label><input type="number" id="sTo" min="1" value="1">
+      <button class="act" onclick="doSplitRange()">Extract this range</button>
+      <button class="act" style="background:var(--ink)" onclick="doSplitAll()">Split every page</button>
+    </div>
+    <div class="status" id="s-split"></div>
+  </div>
+
+  <!-- IMG2PDF -->
+
+  </div>
+
+  <section class="explain">
+    <h2>About this tool</h2>
+    <p>Choose the page range you want to extract, or split every page into its own file. This is useful for separating one form from a bundle or sharing only the relevant pages of a document — done privately, on your device.</p>
+    <h2>How to split a PDF</h2>
+    <ol class="steps">
+      <li>Load your PDF by clicking the drop area or dragging it in.</li>
+      <li>Enter a page range to extract, or choose to split every page into its own file.</li>
+      <li>Click the split button.</li>
+      <li>The extracted pages download to your device.</li>
+    </ol>
+    <h2>Is it really private?</h2>
+    <p>Yes. Unlike most online PDF services, this tool does not upload your file to a server. The file is read into your browser's memory on your own computer or phone, processed there, and handed straight back to you as a download. We never receive, see, store, or transmit it. Closing or refreshing the page clears it from memory.</p>
+    <h2>Frequently asked questions</h2>
+    <h3>Can I extract just one section of a PDF?</h3>
+    <p>Yes. Enter the start and end page of the range you want and only those pages are saved into a new file.</p>
+    <h3>Is my document uploaded to split it?</h3>
+    <p>No. Splitting is done entirely in your browser; the document never leaves your device.</p>
+    <h3>Can I split a PDF into single pages?</h3>
+    <p>Yes. Choose the split-every-page option and each page is saved as its own separate PDF.</p>
+    <h3>Will splitting change the page quality?</h3>
+    <p>No. Pages are copied unchanged, so quality is identical to the original.</p>
+    <h3>What if my PDF is password protected?</h3>
+    <p>Unlock it first with the Remove Password tool, only for documents you are entitled to open, then split the unlocked copy.</p>
+    <h2>More free PDF tools</h2>
+    <p><a href="fill-pdf-form.html">Fill a PDF Form Online</a> · <a href="merge-pdf.html">Merge PDF Files</a> · <a href="images-to-pdf.html">Convert Images to PDF</a> · <a href="remove-pdf-password.html">Remove a Password From a PDF You Own</a> · <a href="rotate-pdf.html">Rotate PDF Pages</a></p>
+  </section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I extract just one section of a PDF?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Enter the start and end page of the range you want and only those pages are saved into a new file."}}, {"@type": "Question", "name": "Is my document uploaded to split it?", "acceptedAnswer": {"@type": "Answer", "text": "No. Splitting is done entirely in your browser; the document never leaves your device."}}, {"@type": "Question", "name": "Can I split a PDF into single pages?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Choose the split-every-page option and each page is saved as its own separate PDF."}}, {"@type": "Question", "name": "Will splitting change the page quality?", "acceptedAnswer": {"@type": "Answer", "text": "No. Pages are copied unchanged, so quality is identical to the original."}}, {"@type": "Question", "name": "What if my PDF is password protected?", "acceptedAnswer": {"@type": "Answer", "text": "Unlock it first with the Remove Password tool, only for documents you are entitled to open, then split the unlocked copy."}}]}</script>
+<footer>
+  Your files are processed entirely in your browser and never uploaded.<br>
+  <a href="legal.html#terms">Terms</a> · <a href="legal.html#privacy">Privacy</a> ·
+  <a href="legal.html#disclaimer">Disclaimer</a> · Built with pdf-lib (MIT) &amp; pdf.js (Apache 2.0) · A FishyBiz project
+</footer>
+</div>
+<script src="app.js"></script>
+<script src="i18n.js"></script>
+</body>
+</html>
