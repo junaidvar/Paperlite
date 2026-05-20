@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPUB to PDF Converter Free — eBooks to PDF | PaperLite</title>
+<meta name="description" content="Convert EPUB eBook files to PDF online for free in your browser. Reads each chapter and builds a clean readable PDF. Your file is never uploaded.">
+<link rel="canonical" href="https://paperlitepdf.com/epub-to-pdf.html">
+<link rel="alternate" hreflang="en" href="https://paperlitepdf.com/epub-to-pdf.html">
+<link rel="alternate" hreflang="x-default" href="https://paperlitepdf.com/epub-to-pdf.html">
+<meta property="og:title" content="EPUB to PDF Converter Free — eBooks to PDF | PaperLite">
+<meta property="og:description" content="Convert EPUB eBook files to PDF online for free in your browser. Reads each chapter and builds a clean readable PDF. Your file is never uploaded.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index,follow">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+<nav class="topnav">
+  <a href="index.html" class="logo"><span class="dot"></span>PaperLite</a>
+  <div class="links">
+    <a href="fill-pdf-form.html">Fill Form</a>
+    <a href="sign-pdf-online.html">Sign PDF</a>
+    <a href="merge-pdf.html">Merge</a>
+    <a href="split-pdf.html">Split</a>
+    <a href="images-to-pdf.html">Images&rarr;PDF</a>
+    <a href="word-to-pdf.html">Word&rarr;PDF</a>
+    <a href="epub-to-pdf.html">EPUB&rarr;PDF</a>
+    <a href="remove-pdf-password.html">Remove Password</a>
+    <a href="rotate-pdf.html">Rotate</a>
+    <a href="blog/index.html">Blog</a>
+  </div>
+  <span id="langSwitcher"></span>
+  </nav>
+  <header class="toolhead">
+    <h1>EPUB to PDF Converter</h1>
+    <p class="lede">Turn an EPUB eBook into a readable PDF. The converter reads each chapter from the EPUB in order and lays it out as a clean text PDF, inside your browser. Nothing is uploaded.</p>
+    <div class="privacy">&#128274; <b>Your file never leaves your device.</b> All processing runs locally in your browser.</div>
+  </header>
+
+  <div class="panel active toolpanel">
+  <div class="toolinner">
+    <div class="drop" id="d-epub" onclick="document.getElementById('f-epub').click()">
+      <p><b>Click to choose an EPUB file</b> or drop it here</p>
+    </div>
+    <input type="file" id="f-epub" accept=".epub,application/epub+zip">
+    <button class="act" onclick="doEpubToPdf()">Convert to PDF</button>
+    <div class="status" id="s-epub"></div>
+  </div>
+  </div>
+
+  <section class="explain">
+    <h2>About this tool</h2>
+    <p>This converter produces a clean text-only PDF of the EPUB&#x27;s content, with each chapter starting on a new page. Embedded images, custom fonts, and complex eBook styling are not reproduced. For purely text books (novels, essays, public-domain literature), the output is highly readable. For richly illustrated eBooks, expect a text-only result.</p>
+    <h2>How to convert an EPUB to PDF</h2>
+    <ol class="steps">
+      <li>Click the drop area or drag your .epub file in.</li>
+      <li>Click “Convert to PDF”. The converter reads the EPUB&#x27;s chapters in their proper reading order.</li>
+      <li>A multi-page PDF downloads to your device, with each chapter starting on its own page.</li>
+    </ol>
+    <h2>Is it really private?</h2>
+    <p>Yes. The file is read into your browser's memory on your own computer or phone, processed there, and handed straight back to you as a download. We never receive, see, store, or transmit it. Closing or refreshing the page clears it from memory.</p>
+    <h2>Frequently asked questions</h2>
+    <h3>Is my eBook uploaded anywhere?</h3>
+    <p>No. The EPUB file is opened and read inside your own browser, and the PDF is built locally. Nothing is sent to a server.</p>
+    <h3>Will the PDF include images from the EPUB?</h3>
+    <p>No. This converter produces a clean text-only PDF. Embedded images and complex eBook layout are not reproduced. For purely text books this is usually the desired result.</p>
+    <h3>What about DRM-protected EPUB files?</h3>
+    <p>DRM-protected files cannot be converted. The converter only works on EPUBs you are authorised to read without protection (for example, public-domain books, your own creations, or DRM-free purchases).</p>
+    <h3>Are chapters preserved in order?</h3>
+    <p>Yes. The EPUB format includes a manifest that defines reading order; the converter follows that order and starts each chapter on a new PDF page.</p>
+    <h3>Why are some characters missing or replaced?</h3>
+    <p>The standard PDF fonts cannot render every character (some symbols, certain non-Latin scripts). Unsupported characters are replaced with spaces to keep conversion reliable across any EPUB.</p>
+    <h3>What does this tool not do?</h3>
+    <p>It does not reproduce custom eBook fonts, embedded images, or complex layout. It does not handle DRM. For visually faithful EPUB-to-PDF conversion of richly designed eBooks, dedicated desktop tools like Calibre produce more elaborate output.</p>
+    <h2>More free PDF tools</h2>
+    <p>Other free PDF tools: <a href="fill-pdf-form.html">fill a PDF form</a>, <a href="word-to-pdf.html">convert Word to PDF</a>, <a href="merge-pdf.html">merge PDFs</a>, <a href="images-to-pdf.html">convert images to PDF</a>.</p>
+  </section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is my eBook uploaded anywhere?", "acceptedAnswer": {"@type": "Answer", "text": "No. The EPUB file is opened and read inside your own browser, and the PDF is built locally. Nothing is sent to a server."}}, {"@type": "Question", "name": "Will the PDF include images from the EPUB?", "acceptedAnswer": {"@type": "Answer", "text": "No. This converter produces a clean text-only PDF. Embedded images and complex eBook layout are not reproduced. For purely text books this is usually the desired result."}}, {"@type": "Question", "name": "What about DRM-protected EPUB files?", "acceptedAnswer": {"@type": "Answer", "text": "DRM-protected files cannot be converted. The converter only works on EPUBs you are authorised to read without protection (for example, public-domain books, your own creations, or DRM-free purchases)."}}, {"@type": "Question", "name": "Are chapters preserved in order?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The EPUB format includes a manifest that defines reading order; the converter follows that order and starts each chapter on a new PDF page."}}, {"@type": "Question", "name": "Why are some characters missing or replaced?", "acceptedAnswer": {"@type": "Answer", "text": "The standard PDF fonts cannot render every character (some symbols, certain non-Latin scripts). Unsupported characters are replaced with spaces to keep conversion reliable across any EPUB."}}, {"@type": "Question", "name": "What does this tool not do?", "acceptedAnswer": {"@type": "Answer", "text": "It does not reproduce custom eBook fonts, embedded images, or complex layout. It does not handle DRM. For visually faithful EPUB-to-PDF conversion of richly designed eBooks, dedicated desktop tools like Calibre produce more elaborate output."}}]}</script>
+<footer>
+  Your files are processed entirely in your browser and never uploaded.<br>
+  <a href="legal.html#terms">Terms</a> &middot; <a href="legal.html#privacy">Privacy</a> &middot;
+  <a href="legal.html#disclaimer">Disclaimer</a> &middot; Built with pdf-lib (MIT) &amp; pdf.js (Apache 2.0) &middot; A FishyBiz project
+</footer>
+</div>
+<script src="app.js"></script>
+<script src="i18n.js"></script>
+</body>
+</html>
