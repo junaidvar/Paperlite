@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign a PDF Online Free | Add Signature, No Upload — PaperLite</title>
+<meta name="description" content="Add your signature to a PDF online for free. Place, drag and resize a signature image on any PDF in your browser. No signup, no upload — the file never leaves your device.">
+<link rel="canonical" href="https://paperlitepdf.com/sign-pdf-online.html">
+<link rel="alternate" hreflang="en" href="https://paperlitepdf.com/sign-pdf-online.html">
+<link rel="alternate" hreflang="x-default" href="https://paperlitepdf.com/sign-pdf-online.html">
+<meta property="og:title" content="Sign a PDF Online Free | Add Signature, No Upload — PaperLite">
+<meta property="og:description" content="Add your signature to a PDF online for free. Place, drag and resize a signature image on any PDF in your browser. No signup, no upload — the file never leaves your device.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index,follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sign a PDF Online — Free and Private","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (browser-based)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Add your signature to a PDF online for free. Place, drag and resize a signature image on any PDF in your browser. No signup, no upload — the file never leaves your device."}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+<nav class="topnav">
+  <a href="index.html" class="logo"><span class="dot"></span>PaperLite</a>
+  <div class="links">
+    <a href="fill-pdf-form.html">Fill Form</a>
+    <a href="sign-pdf-online.html">Sign PDF</a>
+    <a href="merge-pdf.html">Merge</a>
+    <a href="split-pdf.html">Split</a>
+    <a href="images-to-pdf.html">Images&rarr;PDF</a>
+      <a href="word-to-pdf.html">Word&rarr;PDF</a>
+      <a href="epub-to-pdf.html">EPUB&rarr;PDF</a>
+    <a href="remove-pdf-password.html">Remove Password</a>
+    <a href="rotate-pdf.html">Rotate</a>
+      <a href="blog/index.html">Blog</a>
+  </div>
+  <span id="langSwitcher"></span>
+  </nav>
+  <header class="toolhead">
+    <h1>Sign a PDF Online — Free &amp; Private</h1>
+    <p class="lede">Add a signature to any PDF without printing, scanning or uploading it. Drop in a photo or transparent image of your signature, position and size it exactly on the signature line, and download the signed document — all inside your browser.</p>
+    <div class="privacy">&#128274; <b>Your file never leaves your device.</b> All processing runs locally in your browser.</div>
+  </header>
+
+  <div class="panel active toolpanel">
+  <div class="toolinner" id="p-fill">
+    <h2>Fill a Form</h2>
+    <div class="sub">Load a PDF, then click anywhere on it to add text. Drag to reposition.</div>
+    <div class="drop" id="d-fill" onclick="document.getElementById('f-fill').click()">
+      <p><b>Click to choose a PDF</b> or drop it here</p>
+    </div>
+    <input type="file" id="f-fill" accept="application/pdf">
+    <div id="editorWrap" style="display:none">
+      <div class="toolbar">
+        <button onclick="addField('text')">+ Text box</button>
+        <button onclick="addField('check')">+ Checkmark ✓</button>
+        <button onclick="document.getElementById('imgInput').click()">+ Image / Signature</button>
+        <input type="file" id="imgInput" accept="image/png,image/jpeg" style="display:none">
+        <span class="fontgrp">
+          <select id="fontFamilySel" disabled onchange="applyFontFamily(this.value)" title="Font of selected box">
+            <option value="Helvetica">Helvetica / Arial</option>
+            <option value="TimesRoman">Times Roman</option>
+            <option value="Courier">Courier</option>
+          </select>
+          <select id="fontSizeSel" disabled onchange="applyFontSize(this.value)" title="Font size (points), like MS Word">
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11" selected>11</option>
+            <option value="12">12</option>
+            <option value="14">14</option>
+            <option value="16">16</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+            <option value="24">24</option>
+            <option value="28">28</option>
+            <option value="36">36</option>
+          </select>
+        </span>
+        <div class="pager">
+          <button onclick="changePage(-1)">‹ Prev</button>
+          <span id="pageInfo">Page 1 / 1</span>
+          <button onclick="changePage(1)">Next ›</button>
+        </div>
+        <button class="act" style="margin:0" onclick="exportFilled()">Download filled PDF</button>
+      </div>
+      <p class="hint">Add a text box, a checkmark, or an image/signature (PNG or JPG — a transparent PNG signature works best). Drag anything to move it; drag the orange corner to resize. The dashed outline shows only on the item you're editing — the final PDF is clean. Delete via ✕ or double-click (or Delete/Backspace on an empty text box).</p>
+      <div id="editorStage"><canvas id="pdfCanvas"></canvas></div>
+    </div>
+    <div class="status" id="s-fill"></div>
+  </div>
+
+  <!-- MERGE -->
+
+  </div>
+
+
+  <section class="explain">
+    <h2>About this tool</h2>
+    <p>Signing a PDF normally means printing it, signing by hand, scanning it back, and emailing a large file — or uploading a contract to a website you have to trust. PaperLite lets you place a signature image directly onto the PDF in your browser. The document and your signature never leave your device. This is well suited to contracts, agreements, letters and forms where the content is private. For the cleanest result, use a signature saved as a transparent PNG (signed on a tablet, or with the background removed) so no white box covers the form.</p>
+    <h2>How to sign a PDF online</h2>
+    <ol class="steps">
+      <li>Load the PDF you need to sign by clicking the drop area or dragging it in.</li>
+      <li>Click the image / signature button and choose your signature image (a transparent PNG works best).</li>
+      <li>Drag the signature onto the signature line; drag its corner to resize it to fit.</li>
+      <li>Add a date or printed name with the text-box button if the document needs it.</li>
+      <li>Download the signed PDF and review it before sending.</li>
+    </ol>
+    <h2>Is it really private?</h2>
+    <p>Yes. Unlike most online PDF services, this tool does not upload your file to a server. The file is read into your browser's memory on your own computer or phone, processed there, and handed straight back to you as a download. We never receive, see, store, or transmit it. Closing or refreshing the page clears it from memory.</p>
+    <h2>Frequently asked questions</h2>
+    <h3>How do I add my signature to a PDF for free?</h3>
+    <p>Load the PDF, click the image button, and choose a picture of your signature. You can drag it onto the signature line and resize it. It is free, with no signup and no upload.</p>
+    <h3>What signature image works best?</h3>
+    <p>A PNG with a transparent background gives the cleanest result because only the ink shows. A plain photo of a signature on white paper will place a white rectangle over that part of the form.</p>
+    <h3>Is my contract uploaded when I sign it?</h3>
+    <p>No. The PDF and the signature are combined inside your own browser and never sent to a server, which matters for private contracts and agreements.</p>
+    <h3>Can I also add the date and my printed name?</h3>
+    <p>Yes. Use the text-box button to type the date, your name, or any other detail, and position each one where the document requires it.</p>
+    <h3>Is an image signature legally valid?</h3>
+    <p>Whether a particular signature is legally accepted depends on the document and the laws and rules that apply to it. This tool places a visible signature image; it does not provide certified or cryptographic e-signatures. Check the requirements for your specific document.</p>
+    <h3>Can I sign more than one page?</h3>
+    <p>Yes. Use Prev and Next to move between pages and add a signature or initials on each page that needs one.</p>
+    <h2>More free PDF tools</h2>
+    <p>Filling an official form too? See <a href="fill-government-pdf-form.html">fill a government PDF form</a>. You can also <a href="fill-pdf-form.html">type onto any PDF form</a> or <a href="merge-pdf.html">merge documents</a> before signing.</p>
+  </section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I add my signature to a PDF for free?", "acceptedAnswer": {"@type": "Answer", "text": "Load the PDF, click the image button, and choose a picture of your signature. You can drag it onto the signature line and resize it. It is free, with no signup and no upload."}}, {"@type": "Question", "name": "What signature image works best?", "acceptedAnswer": {"@type": "Answer", "text": "A PNG with a transparent background gives the cleanest result because only the ink shows. A plain photo of a signature on white paper will place a white rectangle over that part of the form."}}, {"@type": "Question", "name": "Is my contract uploaded when I sign it?", "acceptedAnswer": {"@type": "Answer", "text": "No. The PDF and the signature are combined inside your own browser and never sent to a server, which matters for private contracts and agreements."}}, {"@type": "Question", "name": "Can I also add the date and my printed name?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use the text-box button to type the date, your name, or any other detail, and position each one where the document requires it."}}, {"@type": "Question", "name": "Is an image signature legally valid?", "acceptedAnswer": {"@type": "Answer", "text": "Whether a particular signature is legally accepted depends on the document and the laws and rules that apply to it. This tool places a visible signature image; it does not provide certified or cryptographic e-signatures. Check the requirements for your specific document."}}, {"@type": "Question", "name": "Can I sign more than one page?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use Prev and Next to move between pages and add a signature or initials on each page that needs one."}}]}</script>
+<footer>
+  Your files are processed entirely in your browser and never uploaded.<br>
+  <a href="legal.html#terms">Terms</a> &middot; <a href="legal.html#privacy">Privacy</a> &middot;
+  <a href="legal.html#disclaimer">Disclaimer</a> &middot; Built with pdf-lib (MIT) &amp; pdf.js (Apache 2.0) &middot; A FishyBiz project
+</footer>
+</div>
+<script src="app.js"></script>
+<script src="i18n.js"></script>
+</body>
+</html>
