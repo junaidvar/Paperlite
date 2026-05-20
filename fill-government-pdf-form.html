@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fill a Government PDF Form Online Free | No Signup — PaperLite</title>
+<meta name="description" content="Fill official and government PDF forms online for free. Type onto the form in your browser with no signup and no upload — your document never leaves your device.">
+<link rel="canonical" href="https://paperlitepdf.com/fill-government-pdf-form.html">
+<link rel="alternate" hreflang="en" href="https://paperlitepdf.com/fill-government-pdf-form.html">
+<link rel="alternate" hreflang="x-default" href="https://paperlitepdf.com/fill-government-pdf-form.html">
+<meta property="og:title" content="Fill a Government PDF Form Online Free | No Signup — PaperLite">
+<meta property="og:description" content="Fill official and government PDF forms online for free. Type onto the form in your browser with no signup and no upload — your document never leaves your device.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index,follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Fill a Government or Official PDF Form Online","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (browser-based)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Fill official and government PDF forms online for free. Type onto the form in your browser with no signup and no upload — your document never leaves your device."}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+<nav class="topnav">
+  <a href="index.html" class="logo"><span class="dot"></span>PaperLite</a>
+  <div class="links">
+    <a href="fill-pdf-form.html">Fill Form</a>
+    <a href="sign-pdf-online.html">Sign PDF</a>
+    <a href="merge-pdf.html">Merge</a>
+    <a href="split-pdf.html">Split</a>
+    <a href="images-to-pdf.html">Images&rarr;PDF</a>
+      <a href="word-to-pdf.html">Word&rarr;PDF</a>
+      <a href="epub-to-pdf.html">EPUB&rarr;PDF</a>
+    <a href="remove-pdf-password.html">Remove Password</a>
+    <a href="rotate-pdf.html">Rotate</a>
+      <a href="blog/index.html">Blog</a>
+  </div>
+  <span id="langSwitcher"></span>
+  </nav>
+  <header class="toolhead">
+    <h1>Fill a Government or Official PDF Form Online</h1>
+    <p class="lede">Filling an official form should not mean handing a sensitive document to an unknown server. Open your government, council, tax, school or visa PDF, type your details directly onto it, and download the completed copy — entirely inside your browser.</p>
+    <div class="privacy">&#128274; <b>Your file never leaves your device.</b> All processing runs locally in your browser.</div>
+  </header>
+
+  <div class="panel active toolpanel">
+  <div class="toolinner" id="p-fill">
+    <h2>Fill a Form</h2>
+    <div class="sub">Load a PDF, then click anywhere on it to add text. Drag to reposition.</div>
+    <div class="drop" id="d-fill" onclick="document.getElementById('f-fill').click()">
+      <p><b>Click to choose a PDF</b> or drop it here</p>
+    </div>
+    <input type="file" id="f-fill" accept="application/pdf">
+    <div id="editorWrap" style="display:none">
+      <div class="toolbar">
+        <button onclick="addField('text')">+ Text box</button>
+        <button onclick="addField('check')">+ Checkmark ✓</button>
+        <button onclick="document.getElementById('imgInput').click()">+ Image / Signature</button>
+        <input type="file" id="imgInput" accept="image/png,image/jpeg" style="display:none">
+        <span class="fontgrp">
+          <select id="fontFamilySel" disabled onchange="applyFontFamily(this.value)" title="Font of selected box">
+            <option value="Helvetica">Helvetica / Arial</option>
+            <option value="TimesRoman">Times Roman</option>
+            <option value="Courier">Courier</option>
+          </select>
+          <select id="fontSizeSel" disabled onchange="applyFontSize(this.value)" title="Font size (points), like MS Word">
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11" selected>11</option>
+            <option value="12">12</option>
+            <option value="14">14</option>
+            <option value="16">16</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+            <option value="24">24</option>
+            <option value="28">28</option>
+            <option value="36">36</option>
+          </select>
+        </span>
+        <div class="pager">
+          <button onclick="changePage(-1)">‹ Prev</button>
+          <span id="pageInfo">Page 1 / 1</span>
+          <button onclick="changePage(1)">Next ›</button>
+        </div>
+        <button class="act" style="margin:0" onclick="exportFilled()">Download filled PDF</button>
+      </div>
+      <p class="hint">Add a text box, a checkmark, or an image/signature (PNG or JPG — a transparent PNG signature works best). Drag anything to move it; drag the orange corner to resize. The dashed outline shows only on the item you're editing — the final PDF is clean. Delete via ✕ or double-click (or Delete/Backspace on an empty text box).</p>
+      <div id="editorStage"><canvas id="pdfCanvas"></canvas></div>
+    </div>
+    <div class="status" id="s-fill"></div>
+  </div>
+
+  <!-- MERGE -->
+
+  </div>
+
+
+  <section class="explain">
+    <h2>About this tool</h2>
+    <p>Government and official forms are exactly the documents you should be most careful uploading anywhere. They contain identity numbers, addresses, financial details and signatures. PaperLite fills them without uploading: the form is opened in your own browser, you place your answers and signature on it, and the finished PDF is saved straight back to your device. We never receive or store it. There is no account to create and no watermark stamped on an official document.</p>
+    <h2>How to fill an official PDF form online</h2>
+    <ol class="steps">
+      <li>Open this page and load the official PDF form by clicking the drop area or dragging the file in.</li>
+      <li>Use the text-box button to type your details onto each line of the form.</li>
+      <li>Use the checkmark button for tick boxes, and the image button to add a scanned or drawn signature.</li>
+      <li>Move through pages with Prev and Next for multi-page government forms.</li>
+      <li>Download the completed PDF and check it carefully before submitting it to the authority.</li>
+    </ol>
+    <h2>Is it really private?</h2>
+    <p>Yes. Unlike most online PDF services, this tool does not upload your file to a server. The file is read into your browser's memory on your own computer or phone, processed there, and handed straight back to you as a download. We never receive, see, store, or transmit it. Closing or refreshing the page clears it from memory.</p>
+    <h2>Frequently asked questions</h2>
+    <h3>Is it safe to fill a government form online?</h3>
+    <p>With this tool, yes, because the form is never uploaded. It is opened and edited only inside your own browser, so identity and financial details on official forms are never sent to a server.</p>
+    <h3>Do I need to create an account to fill an official form?</h3>
+    <p>No. There is no signup and no email required. This matters for official documents, where you should not have to register with a third party to complete a government form.</p>
+    <h3>Will there be a watermark on my official document?</h3>
+    <p>No. The downloaded PDF is clean, with no watermark or branding, which is essential for forms submitted to a government office or authority.</p>
+    <h3>Can I add my signature to a government form?</h3>
+    <p>Yes. Use the image button to place a scanned or photographed signature, then resize and position it on the signature line. A transparent PNG signature gives the cleanest result.</p>
+    <h3>The official form is a flat scan with no fillable boxes — can I still use it?</h3>
+    <p>Yes. This tool places text anywhere you click, so it works on scanned official forms that have no built-in form fields, which many free tools cannot handle.</p>
+    <h3>Should I check the form before submitting it?</h3>
+    <p>Always. Text is placed where you position it, so open the finished PDF and verify every field is correct and aligned before submitting it to any authority. You are responsible for the final document.</p>
+    <h2>More free PDF tools</h2>
+    <p>Need to add only a signature? Use the <a href="sign-pdf-online.html">sign a PDF online</a> tool. You can also <a href="merge-pdf.html">merge supporting documents</a> into one file, or <a href="images-to-pdf.html">turn photos of documents into a PDF</a>.</p>
+  </section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is it safe to fill a government form online?", "acceptedAnswer": {"@type": "Answer", "text": "With this tool, yes, because the form is never uploaded. It is opened and edited only inside your own browser, so identity and financial details on official forms are never sent to a server."}}, {"@type": "Question", "name": "Do I need to create an account to fill an official form?", "acceptedAnswer": {"@type": "Answer", "text": "No. There is no signup and no email required. This matters for official documents, where you should not have to register with a third party to complete a government form."}}, {"@type": "Question", "name": "Will there be a watermark on my official document?", "acceptedAnswer": {"@type": "Answer", "text": "No. The downloaded PDF is clean, with no watermark or branding, which is essential for forms submitted to a government office or authority."}}, {"@type": "Question", "name": "Can I add my signature to a government form?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use the image button to place a scanned or photographed signature, then resize and position it on the signature line. A transparent PNG signature gives the cleanest result."}}, {"@type": "Question", "name": "The official form is a flat scan with no fillable boxes \u2014 can I still use it?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. This tool places text anywhere you click, so it works on scanned official forms that have no built-in form fields, which many free tools cannot handle."}}, {"@type": "Question", "name": "Should I check the form before submitting it?", "acceptedAnswer": {"@type": "Answer", "text": "Always. Text is placed where you position it, so open the finished PDF and verify every field is correct and aligned before submitting it to any authority. You are responsible for the final document."}}]}</script>
+<footer>
+  Your files are processed entirely in your browser and never uploaded.<br>
+  <a href="legal.html#terms">Terms</a> &middot; <a href="legal.html#privacy">Privacy</a> &middot;
+  <a href="legal.html#disclaimer">Disclaimer</a> &middot; Built with pdf-lib (MIT) &amp; pdf.js (Apache 2.0) &middot; A FishyBiz project
+</footer>
+</div>
+<script src="app.js"></script>
+<script src="i18n.js"></script>
+</body>
+</html>
