@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merge PDF Files Free Online — Combine PDFs, No Upload</title>
+<meta name="description" content="Combine multiple PDF files into one, free and in your browser. Reorder before merging. Files are never uploaded — fully private and unlimited.">
+<link rel="canonical" href="https://paperlitepdf.com/merge-pdf.html">
+<link rel="alternate" hreflang="en" href="https://paperlitepdf.com/merge-pdf.html">
+<link rel="alternate" hreflang="x-default" href="https://paperlitepdf.com/merge-pdf.html">
+<meta property="og:title" content="Merge PDF Files Free Online — Combine PDFs, No Upload">
+<meta property="og:description" content="Combine multiple PDF files into one, free and in your browser. Reorder before merging. Files are never uploaded — fully private and unlimited.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index,follow">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Merge PDF Files — Free &amp; Private",
+"applicationCategory":"UtilitiesApplication","operatingSystem":"Any (browser-based)",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"description":"Combine multiple PDF files into one, free and in your browser. Reorder before merging. Files are never uploaded — fully private and unlimited."}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+<nav class="topnav">
+  <a href="index.html" class="logo"><span class="dot"></span>PaperLite</a>
+  <div class="links">
+    <a href="fill-pdf-form.html">Fill Form</a>
+    <a href="sign-pdf-online.html">Sign PDF</a>
+    <a href="merge-pdf.html">Merge</a>
+    <a href="split-pdf.html">Split</a>
+    <a href="images-to-pdf.html">Images→PDF</a>
+      <a href="word-to-pdf.html">Word→PDF</a>
+      <a href="epub-to-pdf.html">EPUB→PDF</a>
+    <a href="remove-pdf-password.html">Remove Password</a>
+    <a href="rotate-pdf.html">Rotate</a>
+      <a href="blog/index.html">Blog</a>
+  </div>
+  <span id="langSwitcher"></span>
+  </nav>
+  <header class="toolhead">
+    <h1>Merge PDF Files — Free &amp; Private</h1>
+    <p class="lede">Combine several PDFs into a single document in the order you choose. The merge happens locally in your browser, so none of your files are uploaded anywhere.</p>
+    <div class="privacy">🔒 <b>Your file never leaves your device.</b> All processing runs locally in your browser.</div>
+  </header>
+
+  <div class="panel active toolpanel">
+  <div class="toolinner" id="p-merge">
+    <h2>Merge PDFs</h2>
+    <div class="sub">They'll be joined top to bottom in the order listed.</div>
+    <div class="drop" id="d-merge" onclick="document.getElementById('f-merge').click()">
+      <p><b>Click to add PDFs</b> or drop them here</p>
+    </div>
+    <input type="file" id="f-merge" accept="application/pdf" multiple>
+    <ul class="filelist" id="list-merge"></ul>
+    <button class="act" id="btn-merge" disabled onclick="doMerge()">Merge into one PDF</button>
+    <div class="status" id="s-merge"></div>
+  </div>
+
+  <!-- SPLIT -->
+
+  </div>
+
+  <section class="explain">
+    <h2>About this tool</h2>
+    <p>Add the PDFs you want to join, arrange them in the order you need, and download one combined file. Because the work is done in your browser there is no file-size server limit and nothing you merge is ever transmitted or stored by us.</p>
+    <h2>How to merge PDF files</h2>
+    <ol class="steps">
+      <li>Click the drop area or drag your PDF files in. Add as many as you need.</li>
+      <li>The files are listed in the order they will be joined; remove any with the ✕.</li>
+      <li>Click “Merge into one PDF”.</li>
+      <li>A single combined PDF downloads to your device.</li>
+    </ol>
+    <h2>Is it really private?</h2>
+    <p>Yes. Unlike most online PDF services, this tool does not upload your file to a server. The file is read into your browser's memory on your own computer or phone, processed there, and handed straight back to you as a download. We never receive, see, store, or transmit it. Closing or refreshing the page clears it from memory.</p>
+    <h2>Frequently asked questions</h2>
+    <h3>Is there a file size or page limit?</h3>
+    <p>There is no server limit because nothing is uploaded — merging happens in your browser. Very large files are limited only by your own device&#x27;s memory.</p>
+    <h3>Are my files uploaded when I merge them?</h3>
+    <p>No. Every file stays on your device. The merge is done locally in the browser and the combined file is handed straight back to you.</p>
+    <h3>Can I change the order of the PDFs before merging?</h3>
+    <p>Yes. The list shows the join order; remove and re-add files to arrange them the way you want before merging.</p>
+    <h3>Does merging reduce quality?</h3>
+    <p>No. Pages are copied as-is into the new file, so text and images keep their original quality.</p>
+    <h3>Can I merge password-protected PDFs?</h3>
+    <p>Remove the password first using the Remove Password tool, for files you are authorised to open, then merge the unlocked copies.</p>
+    <h2>More free PDF tools</h2>
+    <p><a href="fill-pdf-form.html">Fill a PDF Form Online</a> · <a href="split-pdf.html">Split a PDF</a> · <a href="images-to-pdf.html">Convert Images to PDF</a> · <a href="remove-pdf-password.html">Remove a Password From a PDF You Own</a> · <a href="rotate-pdf.html">Rotate PDF Pages</a></p>
+  </section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is there a file size or page limit?", "acceptedAnswer": {"@type": "Answer", "text": "There is no server limit because nothing is uploaded \u2014 merging happens in your browser. Very large files are limited only by your own device's memory."}}, {"@type": "Question", "name": "Are my files uploaded when I merge them?", "acceptedAnswer": {"@type": "Answer", "text": "No. Every file stays on your device. The merge is done locally in the browser and the combined file is handed straight back to you."}}, {"@type": "Question", "name": "Can I change the order of the PDFs before merging?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The list shows the join order; remove and re-add files to arrange them the way you want before merging."}}, {"@type": "Question", "name": "Does merging reduce quality?", "acceptedAnswer": {"@type": "Answer", "text": "No. Pages are copied as-is into the new file, so text and images keep their original quality."}}, {"@type": "Question", "name": "Can I merge password-protected PDFs?", "acceptedAnswer": {"@type": "Answer", "text": "Remove the password first using the Remove Password tool, for files you are authorised to open, then merge the unlocked copies."}}]}</script>
+<footer>
+  Your files are processed entirely in your browser and never uploaded.<br>
+  <a href="legal.html#terms">Terms</a> · <a href="legal.html#privacy">Privacy</a> ·
+  <a href="legal.html#disclaimer">Disclaimer</a> · Built with pdf-lib (MIT) &amp; pdf.js (Apache 2.0) · A FishyBiz project
+</footer>
+</div>
+<script src="app.js"></script>
+<script src="i18n.js"></script>
+</body>
+</html>
