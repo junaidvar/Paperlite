@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word to PDF Converter Free — Basic .docx to PDF | PaperLite</title>
+<meta name="description" content="Convert Word documents (.docx) to PDF online for free in your browser. Basic text-to-PDF converter — your file is never uploaded.">
+<link rel="canonical" href="https://paperlitepdf.com/word-to-pdf.html">
+<link rel="alternate" hreflang="en" href="https://paperlitepdf.com/word-to-pdf.html">
+<link rel="alternate" hreflang="x-default" href="https://paperlitepdf.com/word-to-pdf.html">
+<meta property="og:title" content="Word to PDF Converter Free — Basic .docx to PDF | PaperLite">
+<meta property="og:description" content="Convert Word documents (.docx) to PDF online for free in your browser. Basic text-to-PDF converter — your file is never uploaded.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index,follow">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+<nav class="topnav">
+  <a href="index.html" class="logo"><span class="dot"></span>PaperLite</a>
+  <div class="links">
+    <a href="fill-pdf-form.html">Fill Form</a>
+    <a href="sign-pdf-online.html">Sign PDF</a>
+    <a href="merge-pdf.html">Merge</a>
+    <a href="split-pdf.html">Split</a>
+    <a href="images-to-pdf.html">Images&rarr;PDF</a>
+    <a href="word-to-pdf.html">Word&rarr;PDF</a>
+    <a href="epub-to-pdf.html">EPUB&rarr;PDF</a>
+    <a href="remove-pdf-password.html">Remove Password</a>
+    <a href="rotate-pdf.html">Rotate</a>
+    <a href="blog/index.html">Blog</a>
+  </div>
+  <span id="langSwitcher"></span>
+  </nav>
+  <header class="toolhead">
+    <h1>Word to PDF — Free Basic Converter</h1>
+    <p class="lede">Convert the text of a Word .docx document into a clean PDF, inside your browser, with no upload. Best for text-heavy documents — see the note below on what is and is not preserved.</p>
+    <div class="privacy">&#128274; <b>Your file never leaves your device.</b> All processing runs locally in your browser.</div>
+  </header>
+
+  <div class="panel active toolpanel">
+  <div class="toolinner">
+    <div class="drop" id="d-docx" onclick="document.getElementById('f-docx').click()">
+      <p><b>Click to choose a Word document (.docx)</b> or drop it here</p>
+    </div>
+    <input type="file" id="f-docx" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+    <button class="act" onclick="doDocxToPdf()">Convert to PDF</button>
+    <div class="status" id="s-docx"></div>
+  </div>
+  </div>
+
+  <section class="explain">
+    <h2>About this tool</h2>
+    <p>This is a basic converter. It extracts the document&#x27;s text and reflows it cleanly into a PDF. Complex elements such as tables, embedded images, custom fonts, headers and footers, and exact page layout will not match the original Word file. For text-heavy documents (essays, letters, notes, reports), the result is usually fine. For visually complex documents, open them in Word and use Word&#x27;s own Save as PDF feature for a faithful copy.</p>
+    <h2>How to convert a Word document to PDF</h2>
+    <ol class="steps">
+      <li>Click the drop area or drag your .docx file in.</li>
+      <li>Click “Convert to PDF”.</li>
+      <li>A clean text PDF downloads to your device. Open it once to check the formatting matches what you need.</li>
+    </ol>
+    <h2>Is it really private?</h2>
+    <p>Yes. The file is read into your browser's memory on your own computer or phone, processed there, and handed straight back to you as a download. We never receive, see, store, or transmit it. Closing or refreshing the page clears it from memory.</p>
+    <h2>Frequently asked questions</h2>
+    <h3>Are my documents uploaded?</h3>
+    <p>No. The .docx file is read and converted inside your own browser; it is never sent to a server.</p>
+    <h3>Will my Word document look exactly the same in the PDF?</h3>
+    <p>No. This is a basic text-extraction converter, so formatting like tables, embedded images, custom fonts, and complex page layouts will not be preserved. The text and paragraph structure will, which is enough for most text-heavy documents.</p>
+    <h3>When should I use Word&#x27;s own Save as PDF instead?</h3>
+    <p>When the document has tables, images, complex formatting, or a specific visual layout that has to be preserved exactly. Word&#x27;s built-in export will match the original perfectly.</p>
+    <h3>What file types are supported?</h3>
+    <p>Modern Word documents in .docx format. The older .doc binary format is not supported.</p>
+    <h3>Is the converted PDF editable?</h3>
+    <p>The PDF contains real selectable text, so it can be searched and the text can be copied. To re-edit it as a form, you can load the PDF into the Fill Form tool and place text boxes on top.</p>
+    <h3>Why is some text different or missing characters?</h3>
+    <p>The standard PDF fonts cannot render every character (some symbols, non-Latin scripts, special punctuation). Those characters are replaced with spaces to keep the conversion reliable. For full Unicode support, Word&#x27;s own Save as PDF preserves everything.</p>
+    <h2>More free PDF tools</h2>
+    <p>Other free PDF tools: <a href="fill-pdf-form.html">fill a PDF form</a>, <a href="sign-pdf-online.html">sign a PDF</a>, <a href="merge-pdf.html">merge PDFs</a>, <a href="epub-to-pdf.html">convert EPUB to PDF</a>.</p>
+  </section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Are my documents uploaded?", "acceptedAnswer": {"@type": "Answer", "text": "No. The .docx file is read and converted inside your own browser; it is never sent to a server."}}, {"@type": "Question", "name": "Will my Word document look exactly the same in the PDF?", "acceptedAnswer": {"@type": "Answer", "text": "No. This is a basic text-extraction converter, so formatting like tables, embedded images, custom fonts, and complex page layouts will not be preserved. The text and paragraph structure will, which is enough for most text-heavy documents."}}, {"@type": "Question", "name": "When should I use Word's own Save as PDF instead?", "acceptedAnswer": {"@type": "Answer", "text": "When the document has tables, images, complex formatting, or a specific visual layout that has to be preserved exactly. Word's built-in export will match the original perfectly."}}, {"@type": "Question", "name": "What file types are supported?", "acceptedAnswer": {"@type": "Answer", "text": "Modern Word documents in .docx format. The older .doc binary format is not supported."}}, {"@type": "Question", "name": "Is the converted PDF editable?", "acceptedAnswer": {"@type": "Answer", "text": "The PDF contains real selectable text, so it can be searched and the text can be copied. To re-edit it as a form, you can load the PDF into the Fill Form tool and place text boxes on top."}}, {"@type": "Question", "name": "Why is some text different or missing characters?", "acceptedAnswer": {"@type": "Answer", "text": "The standard PDF fonts cannot render every character (some symbols, non-Latin scripts, special punctuation). Those characters are replaced with spaces to keep the conversion reliable. For full Unicode support, Word's own Save as PDF preserves everything."}}]}</script>
+<footer>
+  Your files are processed entirely in your browser and never uploaded.<br>
+  <a href="legal.html#terms">Terms</a> &middot; <a href="legal.html#privacy">Privacy</a> &middot;
+  <a href="legal.html#disclaimer">Disclaimer</a> &middot; Built with pdf-lib (MIT) &amp; pdf.js (Apache 2.0) &middot; A FishyBiz project
+</footer>
+</div>
+<script src="app.js"></script>
+<script src="i18n.js"></script>
+</body>
+</html>
