@@ -6,8 +6,9 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 
 function setStatus(id,msg,cls){const e=document.getElementById('s-'+id);if(!e)return;
   e.textContent=msg;e.className='status '+(cls||'');}
-function download(bytes,name){const blob=new Blob([bytes],{type:'application/pdf'});
+function downloadFile(bytes,name,mime){const blob=new Blob([bytes],{type:mime});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
+function download(bytes,name){downloadFile(bytes,name,'application/pdf');}
 
 function dnd(dropId,inputId,handler){
   const d=document.getElementById(dropId),inp=document.getElementById(inputId);
@@ -47,11 +48,16 @@ async function doSplitRange(){try{const src=await PDFDocument.load(await splitFi
   download(await out.save(),`pages_${a}-${b}.pdf`);setStatus('split','Done','ok');
 }catch(e){setStatus('split','Error: '+e.message,'err')}}
 async function doSplitAll(){try{const src=await PDFDocument.load(await splitFile.arrayBuffer());
-  const n=src.getPageCount();setStatus('split',`Exporting ${n} pages…`);
+  const n=src.getPageCount();setStatus('split',`Preparing ${n} pages…`);
+  const zip=new JSZip();
   for(let i=0;i<n;i++){const out=await PDFDocument.create();
     const [pg]=await out.copyPages(src,[i]);out.addPage(pg);
-    download(await out.save(),`page_${i+1}.pdf`);await new Promise(r=>setTimeout(r,150));}
-  setStatus('split',`Done — ${n} files downloaded`,'ok');
+    zip.file(`page_${i+1}.pdf`,await out.save());
+    setStatus('split',`Preparing… page ${i+1} of ${n}`);}
+  const zipBytes=await zip.generateAsync({type:'uint8array'});
+  const base=(splitFile.name||'split').replace(/\.pdf$/i,'');
+  downloadFile(zipBytes,`${base}_pages.zip`,'application/zip');
+  setStatus('split',`Done — ${n} pages in one zip file`,'ok');
 }catch(e){setStatus('split','Error: '+e.message,'err')}}
 
 /* ---------- IMG → PDF ---------- */
@@ -494,28 +500,61 @@ async function doEpubToPdf(){
     // OPF manifest, which lists the spine (reading order) of XHTML chapters.
     const containerXml=await zip.file('META-INF/container.xml')?.async('string');
     if(!containerXml){setStatus('epub','Not a valid EPUB file','err');return;}
-    const opfPath=(containerXml.match(/full-path="([^"]+)"/)||[])[1];
+    const opfPath=(containerXml.match(/full-path=["']([^"']+)["']/)||[])[1];
     if(!opfPath){setStatus('epub','Could not find EPUB manifest','err');return;}
     const opfDir=opfPath.includes('/')?opfPath.replace(/\/[^/]+$/,'/'):'';
-    const opfXml=await zip.file(opfPath).async('string');
+    const opfXml=await zip.file(opfPath)?.async('string');
+    if(!opfXml){setStatus('epub','Could not read EPUB manifest file','err');return;}
 
-    // Parse manifest: id -> href; then spine gives reading order via idrefs
+    // Resolve a manifest href (which may be relative, use ./ or ../, or be
+    // percent-encoded) against the OPF's own directory into a real zip path.
+    function resolveEpubPath(dir,href){
+      const clean=decodeURIComponent(href.split('#')[0]);
+      const parts=(dir+clean).split('/');
+      const out=[];
+      for(const p of parts){
+        if(p===''||p==='.')continue;
+        if(p==='..'){out.pop();continue;}
+        out.push(p);
+      }
+      return out.join('/');
+    }
+    // Look a resolved path up in the zip, falling back to a case-insensitive
+    // match — some EPUB packagers are inconsistent about href casing.
+    function findZipFile(path){
+      const direct=zip.file(path);
+      if(direct)return direct;
+      const lower=path.toLowerCase();
+      const hitKey=Object.keys(zip.files).find(k=>k.toLowerCase()===lower);
+      return hitKey?zip.file(hitKey):null;
+    }
+
+    // Parse manifest: id -> href. Attribute order is NOT guaranteed by the
+    // EPUB spec — Calibre and many other tools write href before id — so we
+    // read each <item> tag's attributes independently rather than assuming
+    // a fixed order. Handles both single- and double-quoted attributes.
     const manifest={};
-    const manifestRe=/<item\s+[^>]*id="([^"]+)"[^>]*href="([^"]+)"[^>]*\/>/g;
-    let m; while((m=manifestRe.exec(opfXml))!==null){manifest[m[1]]=m[2];}
-    const spineRe=/<itemref\s+[^>]*idref="([^"]+)"/g;
+    const itemRe=/<item\b([^>]*)>/g;
+    let m; while((m=itemRe.exec(opfXml))!==null){
+      const attrs=m[1];
+      const idM=attrs.match(/\bid=["']([^"']+)["']/);
+      const hrefM=attrs.match(/\bhref=["']([^"']+)["']/);
+      if(idM&&hrefM)manifest[idM[1]]=hrefM[1];
+    }
+    const spineRe=/<itemref\s+[^>]*idref=["']([^"']+)["']/g;
     const order=[]; while((m=spineRe.exec(opfXml))!==null){
       if(manifest[m[1]])order.push(manifest[m[1]]);
     }
-    if(!order.length){setStatus('epub','No readable chapters found','err');return;}
+    if(!order.length){setStatus('epub','No readable chapters found — this EPUB\'s manifest could not be parsed','err');return;}
 
     setStatus('epub','Extracting text from chapters…');
     // Read each chapter file, strip HTML/CSS down to plain text
     const chapters=[];
+    let unresolved=0;
     for(const href of order){
-      const path=opfDir+href.split('#')[0];
-      const file=zip.file(path);
-      if(!file)continue;
+      const path=resolveEpubPath(opfDir,href);
+      const file=findZipFile(path);
+      if(!file){unresolved++;continue;}
       const html=await file.async('string');
       // crude but reliable: drop scripts/styles, then tags, decode common entities
       const text=html
@@ -537,7 +576,12 @@ async function doEpubToPdf(){
         .trim();
       if(text)chapters.push(text);
     }
-    if(!chapters.length){setStatus('epub','No readable text found in EPUB','err');return;}
+    if(!chapters.length){
+      setStatus('epub', unresolved
+        ? `Could not read any chapter files (${unresolved} referenced but missing from the EPUB)`
+        : 'No readable text found in EPUB','err');
+      return;
+    }
 
     setStatus('epub','Building PDF…');
     const out=await PDFDocument.create();
