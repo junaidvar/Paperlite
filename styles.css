@@ -100,6 +100,12 @@
   .toolbar button{background:var(--paper);border:1px solid var(--line);padding:8px 14px;border-radius:5px;
         cursor:pointer;font-family:'Newsreader',serif;font-size:14px}
   .toolbar button:hover{border-color:var(--accent)}
+  /* .toolbar button (above) ties button.act on specificity and loses on source
+     order, which silently strips the Download button's accent background except
+     on :hover. This re-asserts it with higher specificity so it's always lit. */
+  .toolbar button.act{background:var(--accent);color:#fff;border:none}
+  .toolbar button.act:hover{background:var(--accent-deep)}
+  .toolbar button.act:disabled{background:var(--line);color:var(--ink);cursor:not-allowed}
   .hint{font-size:13px;color:var(--muted);font-style:italic;margin-top:8px}
   .pager{display:flex;gap:8px;align-items:center;font-size:14px}
   footer{margin-top:60px;text-align:center;color:var(--muted);font-size:13px;font-style:italic}
