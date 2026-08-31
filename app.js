@@ -19,6 +19,53 @@ function dnd(dropId,inputId,handler){
   inp.addEventListener('change',()=>handler(inp.files));
 }
 
+/* ---------- shared size-reduction helper (used by the standalone Compress
+   tool AND, optionally, by Fill Form before its download) ---------- */
+function humanSize(bytes){
+  if(bytes<1024)return bytes+' B';
+  if(bytes<1024*1024)return (bytes/1024).toFixed(1)+' KB';
+  return (bytes/1024/1024).toFixed(2)+' MB';
+}
+const COMPRESS_PRESETS={
+  recommended:{scale:2.0,quality:0.72},
+  smaller:{scale:1.5,quality:0.55},
+  smallest:{scale:1.0,quality:0.40}
+};
+// Rasterizes each page to a JPEG at the chosen preset and rebuilds the PDF
+// from those images — a reliable, browser-only way to shrink any PDF,
+// especially scanned/image-heavy ones. Trade-off: pages become flattened
+// images, so text is no longer selectable in the output. If that ever
+// produces a LARGER file than the original (can happen on small, already-
+// lean text PDFs), we fall back to a lossless re-save so the result is
+// never bigger than what went in.
+async function rasterizeCompress(bytes,level,onProgress){
+  const before=bytes.length;
+  const {scale,quality}=COMPRESS_PRESETS[level]||COMPRESS_PRESETS.recommended;
+  const srcDoc=await pdfjsLib.getDocument({data:bytes.slice(0)}).promise;
+  const outDoc=await PDFDocument.create();
+  const n=srcDoc.numPages;
+  for(let i=1;i<=n;i++){
+    if(onProgress)onProgress(i,n);
+    const page=await srcDoc.getPage(i);
+    const vp=page.getViewport({scale});
+    const c=document.createElement('canvas');
+    c.width=vp.width;c.height=vp.height;
+    await page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;
+    const jpgBlob=await new Promise(r=>c.toBlob(r,'image/jpeg',quality));
+    const jpgBuf=new Uint8Array(await jpgBlob.arrayBuffer());
+    const img=await outDoc.embedJpg(jpgBuf);
+    const unscaled=page.getViewport({scale:1});
+    const pg=outDoc.addPage([unscaled.width,unscaled.height]);
+    pg.drawImage(img,{x:0,y:0,width:pg.getWidth(),height:pg.getHeight()});
+  }
+  let finalBytes=await outDoc.save();
+  if(finalBytes.length>=before){
+    const losslessBytes=await (await PDFDocument.load(bytes.slice(0))).save();
+    if(losslessBytes.length<finalBytes.length)finalBytes=losslessBytes;
+  }
+  return {bytes:finalBytes,before,after:finalBytes.length};
+}
+
 /* ---------- MERGE ---------- */
 let mergeFiles=[];
 dnd('d-merge','f-merge',fs=>{for(const f of fs)if(f.type==='application/pdf')mergeFiles.push(f);renderMerge()});
@@ -131,6 +178,27 @@ async function doRotate(deg){try{const src=await PDFDocument.load(await rotFile.
   src.getPages().forEach(p=>{const cur=p.getRotation().angle;p.setRotation(degrees((cur+deg)%360))});
   download(await src.save(),'rotated.pdf');setStatus('rot','Done — rotated.pdf','ok');
 }catch(e){setStatus('rot','Error: '+e.message,'err')}}
+
+/* ---------- COMPRESS ---------- */
+let compressFile=null;
+dnd('d-compress','f-compress',fs=>{compressFile=fs[0];if(compressFile){
+  document.getElementById('compressOpts').style.display='block';
+  setStatus('compress','Loaded: '+compressFile.name+' ('+humanSize(compressFile.size)+')');}});
+
+async function doCompress(){
+  try{
+    if(!compressFile){setStatus('compress','Choose a PDF first','err');return;}
+    const checked=document.querySelector('input[name=cLevel]:checked');
+    const level=checked?checked.value:'recommended';
+    setStatus('compress','Reading PDF…');
+    const srcBytes=new Uint8Array(await compressFile.arrayBuffer());
+    const {bytes,before,after}=await rasterizeCompress(srcBytes,level,
+      (i,n)=>setStatus('compress',`Compressing… page ${i} of ${n}`));
+    const pct=before>0?Math.max(0,Math.round((1-after/before)*100)):0;
+    download(bytes,compressFile.name.replace(/\.pdf$/i,'')+'_compressed.pdf');
+    setStatus('compress',`Done — ${humanSize(before)} → ${humanSize(after)} (${pct}% smaller)`,'ok');
+  }catch(e){setStatus('compress','Error: '+e.message,'err');console.error(e);}
+}
 
 /* ---------- FILL FORM (the differentiator) ---------- */
 let fillBytes=null,pdfDoc=null,curPage=1,totalPages=1,renderScale=1.4;
@@ -335,6 +403,19 @@ function syncFontUI(){
 function applyFontFamily(v){if(!activeField)return;activeField.fontFamily=v;fitText(activeField);}
 function applyFontSize(v){if(!activeField)return;activeField.fontPt=+v;fitText(activeField);}
 
+// Clicking anywhere that isn't a field (or a toolbar control) deselects the
+// active field, so its dashed outline/handles disappear. The typed text
+// itself is already saved on the field's element — deselecting only hides
+// the editing outline, it never removes the text.
+document.addEventListener('mousedown',e=>{
+  if(!activeField)return;
+  const t=e.target;
+  if(t.closest && (t.closest('.field')||t.closest('.toolbar')))return;
+  activeField.el.classList.remove('active');
+  activeField=null;
+  syncFontUI();
+});
+
 async function exportFilled(){
   try{
     if(!fields.length){setStatus('fill','Add a text box, checkmark or image first','err');return;}
@@ -351,8 +432,9 @@ async function exportFilled(){
 
     for(const fl of fields){
       // images have no text content; only skip empty TEXT fields
+      let raw;
       if(fl.type!=='image'){
-        const raw=fl.text.textContent;
+        raw=fl.text.textContent;
         if(!raw||!raw.trim())continue;
       }
 
@@ -416,8 +498,22 @@ async function exportFilled(){
       });
     }
     if(curPage!==origPage){curPage=origPage;await renderPage();}
-    download(await out.save(),'filled.pdf');
-    setStatus('fill','Done — filled.pdf downloaded','ok');
+
+    const outBytes=await out.save();
+    const reduceEl=document.getElementById('fillReduceSize');
+    if(reduceEl && reduceEl.checked){
+      setStatus('fill','Reducing file size…');
+      const levelSel=document.getElementById('fillCompressLevel');
+      const level=levelSel?levelSel.value:'recommended';
+      const r=await rasterizeCompress(outBytes,level,
+        (i,n)=>setStatus('fill',`Reducing file size… page ${i} of ${n}`));
+      download(r.bytes,'filled_compressed.pdf');
+      const pct=r.before>0?Math.max(0,Math.round((1-r.after/r.before)*100)):0;
+      setStatus('fill',`Done — filled_compressed.pdf downloaded (${humanSize(r.before)} → ${humanSize(r.after)}, ${pct}% smaller)`,'ok');
+    }else{
+      download(outBytes,'filled.pdf');
+      setStatus('fill','Done — filled.pdf downloaded','ok');
+    }
   }catch(e){setStatus('fill','Error: '+e.message,'err');console.error(e);}
 }
 
