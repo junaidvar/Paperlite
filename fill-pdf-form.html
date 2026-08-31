@@ -36,6 +36,7 @@
       <a href="epub-to-pdf.html">EPUB→PDF</a>
     <a href="remove-pdf-password.html">Remove Password</a>
     <a href="rotate-pdf.html">Rotate</a>
+    <a href="compress-pdf.html">Compress</a>
       <a href="blog/index.html">Blog</a>
   </div>
   <span id="langSwitcher"></span>
@@ -86,9 +87,19 @@
           <span id="pageInfo">Page 1 / 1</span>
           <button onclick="changePage(1)">Next ›</button>
         </div>
+        <span class="fontgrp" style="align-items:center">
+          <label style="display:flex;align-items:center;gap:5px;font-size:13.5px;color:var(--muted);cursor:pointer;margin-right:6px">
+            <input type="checkbox" id="fillReduceSize"> Reduce file size
+          </label>
+          <select id="fillCompressLevel" title="How much to shrink the download">
+            <option value="recommended" selected>Recommended</option>
+            <option value="smaller">Smaller file</option>
+            <option value="smallest">Smallest file</option>
+          </select>
+        </span>
         <button class="act" style="margin:0" onclick="exportFilled()">Download filled PDF</button>
       </div>
-      <p class="hint">Add a text box, a checkmark, or an image/signature (PNG or JPG — a transparent PNG signature works best). Drag anything to move it; drag the orange corner to resize. The dashed outline shows only on the item you're editing — the final PDF is clean. Delete via ✕ or double-click (or Delete/Backspace on an empty text box).</p>
+      <p class="hint">Add a text box, a checkmark, or an image/signature (PNG or JPG — a transparent PNG signature works best). Drag anything to move it; drag the orange corner to resize. The dashed outline shows only on the item you're editing — the final PDF is clean. Delete via ✕ or double-click (or Delete/Backspace on an empty text box). Turning on "Reduce file size" shrinks the download by flattening each page into a compressed image — great for large scanned forms, but the resulting text is no longer selectable.</p>
       <div id="editorStage"><canvas id="pdfCanvas"></canvas></div>
     </div>
     <div class="status" id="s-fill"></div>
@@ -131,7 +142,7 @@
     <h3>Why is my text not perfectly aligned to the form lines?</h3>
     <p>Text is placed where you position the box, so alignment is manual. Resize and nudge each box onto the form&#x27;s lines, and use the point-size control so the text matches the printed text.</p>
     <h2>More free PDF tools</h2>
-    <p>Filling an official form? See <a href="fill-government-pdf-form.html">fill a government PDF form online</a>. Just need to sign? Use <a href="sign-pdf-online.html">sign a PDF online</a>. Also: <a href="merge-pdf.html">Merge PDF Files</a> · <a href="split-pdf.html">Split a PDF</a> · <a href="images-to-pdf.html">Convert Images to PDF</a> · <a href="remove-pdf-password.html">Remove a Password From a PDF You Own</a> · <a href="rotate-pdf.html">Rotate PDF Pages</a></p>
+    <p>Filling an official form? See <a href="fill-government-pdf-form.html">fill a government PDF form online</a>. Just need to sign? Use <a href="sign-pdf-online.html">sign a PDF online</a>. Also: <a href="merge-pdf.html">Merge PDF Files</a> · <a href="split-pdf.html">Split a PDF</a> · <a href="images-to-pdf.html">Convert Images to PDF</a> · <a href="remove-pdf-password.html">Remove a Password From a PDF You Own</a> · <a href="rotate-pdf.html">Rotate PDF Pages</a> · <a href="compress-pdf.html">Compress a PDF</a></p>
   </section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do I need Adobe Acrobat to fill a PDF?", "acceptedAnswer": {"@type": "Answer", "text": "No. This runs in any modern browser. You do not need Acrobat, an account, or any installed software \u2014 open the page and start typing on the form."}}, {"@type": "Question", "name": "Is it safe to fill a PDF form online?", "acceptedAnswer": {"@type": "Answer", "text": "With this tool, yes, because the form is never uploaded. It is read and edited inside your own browser and never sent to a server, so sensitive forms such as applications or bank documents stay on your device."}}, {"@type": "Question", "name": "Can I fill a multi-page PDF form?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use the Prev and Next buttons to move through pages; each text box and checkmark stays on the page where you placed it."}}, {"@type": "Question", "name": "Can I fill and sign a PDF online?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Add your typed answers and checkmarks, then use \u201c+ Image / Signature\u201d to add a signature image to the form before downloading \u2014 filling and signing both happen in the same browser session, with nothing uploaded."}}, {"@type": "Question", "name": "How do I clear a PDF form and start over?", "acceptedAnswer": {"@type": "Answer", "text": "Reload the page or drop the original PDF in again. Your edits only exist in the browser for that session and are never saved anywhere, so starting over just means loading the file fresh."}}, {"@type": "Question", "name": "Will the dashed boxes show in the final PDF?", "acceptedAnswer": {"@type": "Answer", "text": "No. The dashed outline only appears on the box you are editing, as a guide. The downloaded PDF contains just your text on the form."}}, {"@type": "Question", "name": "The form has no fillable fields \u2014 can I still use it?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. This tool places text anywhere you click, so it works on flat scanned forms with no built-in fields, which many free tools cannot handle."}}, {"@type": "Question", "name": "Why is my text not perfectly aligned to the form lines?", "acceptedAnswer": {"@type": "Answer", "text": "Text is placed where you position the box, so alignment is manual. Resize and nudge each box onto the form's lines, and use the point-size control so the text matches the printed text."}}]}</script>
 <footer>
